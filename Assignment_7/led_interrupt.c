@@ -1,7 +1,7 @@
 /*
  * File:   led_interrupt.c
  * Author: Shane Ryan
- * Implement a simple two-button control system for an LED using
+ * Implement a two-button control system for an LED using
  * hardware interrupts rather than polling.
  * Created on April 4, 2016, 12:05 PM
  */
