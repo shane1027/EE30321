@@ -1,4 +1,5 @@
 ; led_dimmer.s - a flashing LED
+; Manipulate an LED using two push buttons in assembly.
 ;
 ; Shane Ryan
 ;
