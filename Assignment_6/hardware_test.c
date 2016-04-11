@@ -1,7 +1,8 @@
 /*
  * File:   hardware_test.c
  * Author: Shane Ryan
- *
+ * Setup a quick program to ensure proper hardware
+ * functionality (buttons, LED blink).
  * Created on March 22, 2016, 9:01 PM
  */
 
