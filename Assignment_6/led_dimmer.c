@@ -1,7 +1,8 @@
 /*
  * File:   led_dimmer.c
  * Author: Shane Ryan
- * Dim an LED, toggle on and off, using two push buttons.
+ * Dim an LED, toggle on and off using two push buttons.
+ * Save previous brightness state and utilize polling.
  * Created on March 22, 2016, 9:01 PM
  */
 
