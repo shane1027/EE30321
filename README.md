@@ -5,6 +5,10 @@ _All projects are implemented on a breadboard I assembled (the PIC on the right 
 
 Skills Covered:
 
+### Assignment 1
+
+- Explored and documented previous work with embedded systems
+
 ### Assignment 2, 3, 4
 
 - Binary and Hexadecimal representation and mathematics
