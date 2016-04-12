@@ -41,6 +41,4 @@ Skills Covered:
 
 
 
-University of Notre Dame
-Department of Electrical Engineering
-EE 30321 Embedded Systems - Dr. Stevenson
+University of Notre Dame   |   Department of Electrical Engineering   |   EE 30321 Embedded Systems   |   Dr. Stevenson
