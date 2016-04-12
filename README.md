@@ -1,5 +1,5 @@
 # EE30321i
-Developing an understanding of microcontrollers for use in Embedded Systems using the 16-bit PIC24.
+Developing an understanding of microcontrollers and Embedded Systems using the 16-bit PIC24.
 
 Skills Covered:
 
