@@ -1,10 +1,13 @@
 # EE30321
-Developing an understanding of microcontrollers and Embedded Systems using the 16-bit PIC24.
+Developing an understanding of Harvard architecture microcontrollers and related Embedded Systems using the popular 16-bit PIC24.  Coverage includes everything from the basic building blocks of a microcontroller (working registers, file registers, special function registers, Assembly) to implementation of real-time control systems in C (using serial communications via RS-232, I2C with multiple slaves, data structures, and optimizations).
+
+All projects are implemented on a breadboard I assembled (the PIC on the right is the PIC24 for this course, the one on the left is a PIC18 I use for personal experimentation).
 
 Skills Covered:
 
 # Assignment 2, 3, 4
 
+- Binary and Hexadecimal representation and mathematics
 - Assembly usage in creating time-sensitive software
 - Experience with In-Circuit Serial Programming
 - Simulation experience in MPLABX
