@@ -5,7 +5,7 @@ All projects are implemented on a breadboard I assembled (the PIC on the right i
 
 Skills Covered:
 
-# Assignment 2, 3, 4
+### Assignment 2, 3, 4
 
 - Binary and Hexadecimal representation and mathematics
 - Assembly usage in creating time-sensitive software
@@ -14,16 +14,16 @@ Skills Covered:
 - Additional practice with code organiztion and commenting
 - General architectural properties of microcontrollers
 
-# Assignment 5
+### Assignment 5
 
-# Assignment 6
+### Assignment 6
 
 - Real-time control system development in C
 - Real-time control system development in Assembly
 - Experience with general Input / Output capabilities
 - Configuration of Remappable Pins
 
-# Assignment 7
+### Assignment 7
 
 - Re-implemented a more efficient version of Assignemnt 6
 - Hardware Interrupts
@@ -32,7 +32,7 @@ Skills Covered:
 - Output Compare Module usage for PWM generation
 - Internal Pull-Up / Pull-Down Resistors
 
-# Assignment 8
+### Assignment 8
 
 - Implementation of Serial RS-232 Communication
 - Implementation of I2C Communication
