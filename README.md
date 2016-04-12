@@ -1,5 +1,5 @@
-# EE30321
-Assembly and C code for the PIC24 written in MPLABX for my Embedded Systems class.
+# EE30321i
+Developing an understanding of microcontrollers for use in Embedded Systems using the 16-bit PIC24.
 
 Skills Covered:
 
