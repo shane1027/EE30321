@@ -1,5 +1,5 @@
 # EE30321
-Developing an understanding of **Harvard architecture microcontrollers** and related Embedded Systems using the popular 16-bit **PIC24 in MPLAB X**.  Coverage includes everything from the basic building blocks of a microcontroller (working registers, file registers, special function registers, Assembly) to implementation of **real-time control systems in C** (using _serial communications_ via RS-232, _I2C_ with multiple slaves, _data structures_, and _optimization techniques_).
+Developing an understanding of **Harvard architecture microcontrollers** and related Embedded Systems using the popular 16-bit **PIC24 in MPLAB X**.  Coverage includes everything from the basic building blocks of a microcontroller (working registers, file registers, special function registers, Assembly) to implementation of **real-time control systems in C** (using serial communications via **RS-232**, **I2C** with multiple slaves, **data structures**, and **optimization techniques**).
 
 _All projects are implemented on a breadboard I assembled (the PIC on the right is the PIC24 for this course, the one on the left is a PIC18 I use for personal experimentation)._
 
