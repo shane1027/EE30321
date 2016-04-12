@@ -26,23 +26,23 @@ Skills Covered:
 
 - Real-time control system development in **C**
 - Real-time control system development in **Assembly**
-- Experience with general Input / Output capabilities
-- Configuration of *Control Registers*
+- Experience with general **Input / Output** capabilities
+- Configuration of **Control Registers**
 - Rerouting **Remappable Pins**
 
 ### Assignment 7
 
 - Re-implemented a **more efficient** version of Assignemnt 6
-- Hardware Interrupts
+- Hardware **Interrupts**
 - **Interrupt Vector Tables** and Interrupt Priorities
 - **Timer** configuration and usage
 - Output Compare Module usage for **PWM generation**
-- Internal Pull-Up / Pull-Down Resistors
+- Internal **Pull-Up / Pull-Down** Resistors
 
 ### Assignment 8
 
 - **RS-232 Communication**
-- UART module configuration and usage
+- **UART** module configuration and usage
 - **I2C Communication**
 - **Real-time data transfer** between PIC24 host and (temperature chip) slave
 - Proper configuration of a myriad of modules onboard the PIC24
