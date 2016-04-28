@@ -2,13 +2,11 @@
  * File:   DS1631.h
  * Author: Shane Ryan - sryan8@nd.edu
  * Purpose:  Header file to facilitate easy operation of a DS1631 temperature
- * sensor via I2C on the PIC24 microcontroller.  Includes UART control.
+ * sensor via I2C on the PIC24 microcontroller.
  *
  * Created on April 15, 2016, 12:52 AM
  */
 
-#define BAUDRATE 19200
-#define FCY 7370000/2
 #define ZERO 48
 #define NINE 58
 
@@ -19,8 +17,6 @@
 #define ACCESS_CONFIG 0xAC
 #define CONFIG_DATA 0x0C
 
-#include <stdio.h>
-
 void startI2C1(void);
 int putI2C1(char data);
 void restartI2C1(void);
@@ -30,29 +26,7 @@ void configI2C1(void);
 void configDS1631(void);
 unsigned int readTempDS1631(void);
 char getI2C1(char ack2send);
-void configPins(void);
-void configUART1(void);
 
-void configPins(void) {
-    RPINR18bits.U1RXR = 20;     // map UART1 RX to remappable pin RP20 (pin 12)
-    RPOR1bits.RP36R = 1;        // map UART1 TX to remappable pin RP36 (pin 11)          
-}
-
-void configUART1(void) {
-    /*  Calculate the Baud Rate generator value     */
-    int brg = (FCY/BAUDRATE/4)-1;
-    U1MODEbits.BRGH = 1;        // High speed mode
-    U1BRG = brg;                // store the value in the register
-    
-    U1MODEbits.PDSEL = 0;       // 8 bit data, no parity
-    U1MODEbits.STSEL = 0;       // 1 stop bit
-    
-    U1MODEbits.UEN = 0b00;      // UxTX and UxRX pins are enabled and used;
-                                // also, no flow control pins
-    U1MODEbits.UARTEN = 1;      // enable UART RX/TX
-    U1STAbits.UTXEN = 1;        //Enable the transmitter
- 
-}
 
 char getI2C1(char ack2send) {
     char inByte;
@@ -101,7 +75,7 @@ void configI2C1(void) {
 void startConvertDS1631(void) {
     startI2C1();
     putI2C1(ADDRESS_WRITE);
-    putI2C1(READ_TEMP);
+    putI2C1(START_CONVERT);
     stopI2C1();
 }
 
