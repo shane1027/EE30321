@@ -7,7 +7,7 @@
  * Created on April 4, 2016, 12:05 PM
  */
 
-void _ISR _CNInterrupt(void) {
+void __attribute__((interrupt, no_auto_psv)) _CNInterrupt(void) {
 
     TMR3 = 0x00;
     IEC0bits.T3IE = 1;
@@ -16,15 +16,15 @@ void _ISR _CNInterrupt(void) {
 
 }
 
-void _ISR _T3Interrupt(void) {
+void __attribute__((interrupt, no_auto_psv)) _T3Interrupt(void) {
 
-    if (!PORTAbits.RA0 && !PORTAbits.RA1) {
+    if (!PORTAbits.RA0 && !PORTAbits.RA1) {     // enter on two-button press
 
         my_puts(state_update[1]); // ack the two-button press on UART
 
-        switch (mode) {
+        switch (mode) {         // select proper mode - update high, low, none
             case 0:
-                mode = 1;
+                mode = 1;       
                 my_puts(state_update[10]);
                 my_puts(state_update[7]);
                 LCDUserScreen(mode, high_temp, low_temp);
@@ -45,7 +45,7 @@ void _ISR _T3Interrupt(void) {
     }
 
 
-    if (!PORTAbits.RA0 && mode == 1) {
+    if (!PORTAbits.RA0 && mode == 1) {  // increment high_temp in correct mode
         my_puts(state_update[2]);
         if (high_temp < 99) {
             LCDUserScreen(mode, ++high_temp, low_temp);
@@ -53,7 +53,7 @@ void _ISR _T3Interrupt(void) {
             my_puts(state_update[11]);
         }
     }
-    if (!PORTAbits.RA0 && mode == 2) {
+    if (!PORTAbits.RA0 && mode == 2) {  // increment low_temp in correct mode
         my_puts(state_update[2]);
         if (low_temp < high_temp) {
             LCDUserScreen(mode, high_temp, ++low_temp);
@@ -61,7 +61,7 @@ void _ISR _T3Interrupt(void) {
             my_puts(state_update[11]);
         }
     }
-    if (!PORTAbits.RA1 && mode == 1) {
+    if (!PORTAbits.RA1 && mode == 1) {  // decrement high_temp in correct mode
         my_puts(state_update[3]);
         if (high_temp > low_temp) {
             LCDUserScreen(mode, --high_temp, low_temp);
@@ -69,7 +69,7 @@ void _ISR _T3Interrupt(void) {
             my_puts(state_update[11]);
         }
     }
-    if (!PORTAbits.RA1 && mode == 2) {
+    if (!PORTAbits.RA1 && mode == 2) {  // decrement low_temp in correct mode
         my_puts(state_update[3]);
         if (low_temp > 0) {
             LCDUserScreen(mode, high_temp, --low_temp);
@@ -88,11 +88,15 @@ void _ISR _T3Interrupt(void) {
     }
 
     else {
-        IFS1bits.CNIF = 0;
+        IFS1bits.CNIF = 0;      // nothing held?  clear CN interrupt flag
     }
-
-    IFS0bits.T3IF = 0;
-    IEC1bits.CNIE = 1;
-    IEC0bits.T3IE = 0;
+    
+                                // NOTE: I could look into changing which 
+                                // interrupt flags I'm clearing when to smooth
+                                // over the button usage
+    
+    IFS0bits.T3IF = 0;          // clear flag
+    IEC1bits.CNIE = 1;          // re-enable CN-interrupt
+    IEC0bits.T3IE = 0;          // disable the timer 3 interrupt
 
 }

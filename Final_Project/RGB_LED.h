@@ -7,17 +7,17 @@
  */
 
 // Pins for LED Control Signals
-#define LED_RED LATBbits.LATB13
+#define LED_RED LATBbits.LATB13             // red pin on RB13
 #define LED_RED_PIN TRISBbits.TRISB13
-#define LED_RED_PULLUP CNPUBbits.CNPUB13
+#define LED_RED_PULLUP CNPUBbits.CNPUB13    // enable pull-up resistor
 
-#define LED_GREEN LATBbits.LATB14
+#define LED_GREEN LATBbits.LATB14           // green pin on RB14
 #define LED_GREEN_PIN TRISBbits.TRISB14
-#define LED_GREEN_PULLUP CNPUBbits.CNPUB14
+#define LED_GREEN_PULLUP CNPUBbits.CNPUB14  // enable pull-up resistor
 
-#define LED_BLUE LATBbits.LATB15
+#define LED_BLUE LATBbits.LATB15            // blue pin on RB15
 #define LED_BLUE_PIN TRISBbits.TRISB15
-#define LED_BLUE_PULLUP CNPUBbits.CNPUB15
+#define LED_BLUE_PULLUP CNPUBbits.CNPUB15   // enable pull-up resistor
   
 #define IN 1
 #define OUT 0
@@ -30,7 +30,7 @@
 #define BLUE 2
 
 
-void RGB_LED_init(void) {
+void RGB_LED_init(void) {       // initialize all pins as outputs w/ pull-ups on
     LED_RED_PIN = OUT;
     LED_RED_PULLUP = ON;
     LED_RED = OFF;
@@ -44,7 +44,7 @@ void RGB_LED_init(void) {
     LED_BLUE = OFF;
 }
 
-void RGB_Color(unsigned char color) {
+void RGB_Color(unsigned char color) {       // choose a color and light 'em uP!
     
     if (color == RED) {
         LED_RED = ON;

@@ -64,9 +64,9 @@ void LCDTemp(unsigned int temp, unsigned int high, unsigned int low, unsigned
 
 // Pins for SPI2
 #define USESPI2 
-#define USESCK2 RPOR2bits.RP39R = 9; // RP39 is SCK2
-#define USESDO2 RPOR2bits.RP38R = 8;  // RP38 is SDO2
-#define USESDI2 RPINR22bits.SDI2R = 33; // RPI33 is SDI2
+#define USESCK2 RPOR2bits.RP39R = 9;        // RP39 is SCK2
+#define USESDO2 RPOR2bits.RP38R = 8;        // RP38 is SDO2
+#define USESDI2 RPINR22bits.SDI2R = 33;     // RPI33 is SDI2
 
 #define IN 1
 #define OUT 0
@@ -77,7 +77,7 @@ void LCDTemp(unsigned int temp, unsigned int high, unsigned int low, unsigned
 #define LCD_COMMAND     LOW
 #define LCD_DATA        HIGH
 
-char *phrases[] = {
+char *phrases[] = {                 // array of pointer to char for string disp.
     "Shane's Temp", "*=--------=*",
     "  Cooling   ", "  Heating   ",
     "Temp:   ", "Temp Range",
@@ -280,15 +280,15 @@ static const LCDBYTE ASCII[][5] ={
 };
 
 void LCDWrite(LCDBYTE dc, LCDBYTE data) {
-    LCD_SCE = LOW; // Select LCD panel
-    LCD_DC = dc; // Indicate Data/Command signal
+    LCD_SCE = LOW;                  // Select LCD panel
+    LCD_DC = dc;                    // Indicate Data/Command signal
 
-    SPI2BUF = data; // Put data in output buffer for SPI2
+    SPI2BUF = data;                 // Put data in output buffer for SPI2
     while (!SPI2STATbits.SPIRBF) {
-    } // wait for it to send
+    }                               // wait for it to send
 
-    Nop(); // A little extra wait time
-    LCD_SCE = HIGH; // Deselect LCD panel
+    Nop();                          // A little extra wait time
+    LCD_SCE = HIGH;                 // Deselect LCD panel
 
 }
 
@@ -301,35 +301,35 @@ void LCDClear(void) {
 
 void LCDCarriageReturn(void) {
     int index;
-    for (index = 0; index < 84; index++) {
+    for (index = 0; index < 84; index++) {      // write one row of blanks
         LCDWrite(LCD_DATA, 0x00);
     }
 }
 
 void LCDString(char *input) {
-    while (*input) {
-        LCDCharacter(*input);
-        input++;
+    while (*input) {            // if pointer isn't pointing to null
+        LCDCharacter(*input);   // then print it's dereferenced value (pointee)!
+        input++;                // increment pointer to point to next char
     }
 }
 
 void LCDUserScreen(unsigned char high_low, unsigned int high, unsigned int low) {
-    char high_buff[6];
-    char low_buff[6];
+    char high_buff[6];          // used to contain char representation of int
+    char low_buff[6];           // same things as above
 
-    itoa(high, high_buff);
-    itoa(low, low_buff);
+    itoa(high, high_buff);      // convert int to printable array of char
+    itoa(low, low_buff);        // same thing as above
 
-    LCDClear();
-    LCDString(phrases[0]);
+    LCDClear();                 // clear the LCD
+    
+    LCDString(phrases[0]);      // this block prints the desired template
     LCDString(phrases[1]);
     LCDCarriageReturn();
     LCDString(phrases[9]);
-
-    LCDCarriageReturn();
+    LCDCarriageReturn();        
     LCDString(phrases[6]);
 
-    if (high_low == 1) {
+    if (high_low == 1) {        // show which temp is being updated
         LCDCharacter('*');
     }
     else {
@@ -337,24 +337,24 @@ void LCDUserScreen(unsigned char high_low, unsigned int high, unsigned int low) 
     }
 
     if (high <= 10) {
-        LCDCharacter('0');
+        LCDCharacter('0');      // print a leading zero if one digit temp
         LCDCharacter(high_buff[1]);
     } else {
         LCDCharacter(high_buff[0]);
         LCDCharacter(high_buff[1]);
     }
 
-    LCDCharacter(' ');
+    LCDCharacter(' ');          // more printing for template
     LCDString(phrases[7]);
     
-    if (high_low == 2) {
+    if (high_low == 2) {        // show which temp is being updated
         LCDCharacter('*');
     }
     else {
         LCDCharacter(' ');
     }
 
-    if (low < 10) {
+    if (low < 10) {             // print a leading zero if one digit temp
         LCDCharacter('0');
         LCDCharacter(low_buff[1]);
     } else {
@@ -368,19 +368,19 @@ void LCDUserScreen(unsigned char high_low, unsigned int high, unsigned int low) 
 void LCDTemp(unsigned int temp, unsigned int high, unsigned int low, unsigned
     char state) {
 
-    char temp_buff[6];
+    char temp_buff[6];          // used to contain char representation of int
     char high_buff[6];
     char low_buff[6];
 
-    itoa(temp, temp_buff);
+    itoa(temp, temp_buff);      // convert int to printable array of char
     itoa(high, high_buff);
     itoa(low, low_buff);
 
-    LCDClear();
+    LCDClear();                 // clear LCD and begin printing template
     LCDString(phrases[0]);
     LCDString(phrases[1]);
     
-    switch (state) {
+    switch (state) {            // display current state (heating, cooling)
         case 0:
             LCDCarriageReturn();
             break;
@@ -395,9 +395,9 @@ void LCDTemp(unsigned int temp, unsigned int high, unsigned int low, unsigned
     }
 
 
-    LCDString(phrases[4]);
+    LCDString(phrases[4]);          // more template printing
 
-    if (temp <= 10) {
+    if (temp <= 10) {               // print a leading zero if one digit temp
         LCDCharacter('0');
         LCDCharacter(temp_buff[1]);
     } else {
@@ -405,27 +405,26 @@ void LCDTemp(unsigned int temp, unsigned int high, unsigned int low, unsigned
         LCDCharacter(temp_buff[1]);
     }
 
+    LCDCharacter(' ');              // more template printing
     LCDCharacter(' ');
-    LCDCharacter(' ');
-
     LCDCarriageReturn();
     LCDString(phrases[6]);
     LCDCharacter(' ');
 
     if (high <= 10) {
-        LCDCharacter('0');
+        LCDCharacter('0');          // print a leading zero if one digit temp
         LCDCharacter(high_buff[1]);
     } else {
         LCDCharacter(high_buff[0]);
         LCDCharacter(high_buff[1]);
     }
 
-    LCDCharacter(' ');
+    LCDCharacter(' ');              // more template printing
     LCDString(phrases[7]);
     LCDCharacter(' ');
 
     if (low <= 10) {
-        LCDCharacter('0');
+        LCDCharacter('0');          // print a leading zero if one digit temp
         LCDCharacter(low_buff[1]);
     } else {
         LCDCharacter(low_buff[0]);
@@ -435,19 +434,19 @@ void LCDTemp(unsigned int temp, unsigned int high, unsigned int low, unsigned
     LCDCharacter(' ');
 }
 
-void itoa(unsigned int value, char *buffer) {
+void itoa(unsigned int value, char *buffer) {   // take an int and return char[]
 
     int c = sizeof (buffer) - 1;
-    buffer[c] = 0; // indicate end of char array wtih null
+    buffer[c] = 0;              // indicate end of char array with null
 
     do {
         buffer[c--] = (value % 10) + '0'; // modulus + ASCII 0 = char digit
-        value = value / 10; // rest of the digits stem here
+        value = value / 10;     // rest of the digits stem here
     } while (value);
 
 }
 
-void LCDCharacter(char character) {
+void LCDCharacter(char character) {     // given function to print a character
     int index;
     LCDWrite(LCD_DATA, 0x00);
     for (index = 0; index < 5; index++) {
@@ -456,7 +455,7 @@ void LCDCharacter(char character) {
     LCDWrite(LCD_DATA, 0x00);
 }
 
-void LCDInit(void) {
+void LCDInit(void) {        // used to initialize LCD hardware
     LCD_SCE_PIN = OUT;
     LCD_RESET_PIN = OUT;
     LCD_DC_PIN = OUT;
@@ -466,24 +465,24 @@ void LCDInit(void) {
     USESDO2;
     USESDI2;
 
-    SPI2CON1bits.MSTEN = 1; // make master
-    SPI2CON1bits.PPRE = 0b11; // 1:1 primary prescale
-    SPI2CON1bits.SPRE = 0b111; // 1:1 secondary prescale
-    SPI2CON1bits.MODE16 = 0; // 8-bit transfer mode
-    SPI2CON1bits.SMP = 0; // sample in middle
-    SPI2CON1bits.CKE = 1; // Output on falling edge
-    SPI2CON1bits.CKP = 0; // CLK idle state low
-    SPI2STATbits.SPIEN = 1; // enable SPI2
+    SPI2CON1bits.MSTEN = 1;         // make master
+    SPI2CON1bits.PPRE = 0b11;       // 1:1 primary prescale
+    SPI2CON1bits.SPRE = 0b111;      // 1:1 secondary prescale
+    SPI2CON1bits.MODE16 = 0;        // 8-bit transfer mode
+    SPI2CON1bits.SMP = 0;           // sample in middle
+    SPI2CON1bits.CKE = 1;           // Output on falling edge
+    SPI2CON1bits.CKP = 0;           // CLK idle state low
+    SPI2STATbits.SPIEN = 1;         // enable SPI2
 
     LCD_RESET = LOW;
     LCD_RESET = HIGH;
 
-    LCDWrite(LCD_COMMAND, 0x21); // LCD Extended Commands
-    LCDWrite(LCD_COMMAND, 0xBE); // Set LCD Vop (Contrast)
-    LCDWrite(LCD_COMMAND, 0x04); // Set Temp coefficent. //0x04
-    LCDWrite(LCD_COMMAND, 0x14); // LCD bias mode 1:48. //0x13
-    LCDWrite(LCD_COMMAND, 0x20); // LCD Basic Commands
-    LCDWrite(LCD_COMMAND, 0x0C); // LCD in normal mode.
+    LCDWrite(LCD_COMMAND, 0x21);    // LCD Extended Commands
+    LCDWrite(LCD_COMMAND, 0xBE);    // Set LCD Vop (Contrast)
+    LCDWrite(LCD_COMMAND, 0x04);    // Set Temp coefficent. //0x04
+    LCDWrite(LCD_COMMAND, 0x14);    // LCD bias mode 1:48. //0x13
+    LCDWrite(LCD_COMMAND, 0x20);    // LCD Basic Commands
+    LCDWrite(LCD_COMMAND, 0x0C);    // LCD in normal mode.
 
     LCDClear();
 }

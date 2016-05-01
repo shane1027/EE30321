@@ -16,16 +16,16 @@ void configUART1(void);
 void outChar1(char c);
 void my_puts(char *str);
 
-void my_puts(char *str) {
+void my_puts(char *str) {       // my version of puts to print strings to UART
     outChar1('\n');
     outChar1('\r');
-    while (*str) {
-        outChar1(*str);
-        str++;
+    while (*str) {              // if we haven't reached null, keep printing
+        outChar1(*str);         // print current character
+        str++;                  // increment pointer to next char
     }
 }
 
-char *state_update[] = {
+char *state_update[] = {        // array of pointers to char for string display
     "Screen Update\r", "Two-Button Press\r",
     "Button UP\r", "Button DOWN\r", "Temp Too High\r",
     "Temp Too Low\r", "Settings Updated\r", "Enter Max\r",
